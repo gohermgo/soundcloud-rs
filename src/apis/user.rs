@@ -1,4 +1,4 @@
-use crate::apis::{Comments, Followers, Followings, Likes, Playlists, Tracks, WebProfiles};
+use crate::apis::{Followers, Followings, Likes, Playlists, Tracks, WebProfiles};
 use crate::error::{Error, Result};
 use crate::models::User;
 use crate::Client;
