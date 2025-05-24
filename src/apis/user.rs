@@ -25,7 +25,7 @@ impl<'a> UserRequestBuilder<'a> {
     }
 
     /// Sets the search query filter, which will only return tracks with a matching query.
-    pub fn query<S>(&'a mut self, query: Option<S>) -> &mut UserRequestBuilder
+    pub fn query<S>(&'a mut self, query: Option<S>) -> &'a mut UserRequestBuilder<'a>
     where
         S: AsRef<str>,
     {
@@ -47,7 +47,7 @@ impl<'a> UserRequestBuilder<'a> {
     /// Returns:
     ///     a builder for a user request
     pub async fn permalink(&self, permalink: &str) -> Result<SingleUserRequestBuilder<'a>> {
-        let permalink_url = &format!("https://soundcloud.com/{}", permalink);
+        let permalink_url = &format!("https://soundcloud.com/{permalink}");
         let resource_url = self.client.resolve(permalink_url).await?;
         let id = resource_url
             .path_segments()
@@ -55,7 +55,7 @@ impl<'a> UserRequestBuilder<'a> {
             .unwrap()
             .pop()
             .unwrap();
-        let id = usize::from_str_radix(id, 10).unwrap();
+        let id: usize = id.parse().unwrap();
         Ok(SingleUserRequestBuilder {
             client: self.client,
             id,

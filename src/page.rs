@@ -73,6 +73,7 @@ pub struct Page<T> {
 }
 
 impl<T> Page<T> {
+    #[expect(dead_code)]
     pub fn next_query(&self) -> Result<Option<HashMap<String, String>>> {
         if self.next_href.is_none() {
             return Ok(None);
@@ -86,6 +87,7 @@ impl<T> Page<T> {
         }
     }
 
+    #[expect(dead_code)]
     pub fn is_empty(&self) -> bool {
         self.collection.is_empty()
     }
